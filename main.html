@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>What time is it?</title>
+        <style>
+            a {text-decoration: none; color: black;}
+        </style>
+    </head>
+
+    <body>
+        <b>Set Interval: </b><div id="time">loading</div>
+        <b>Instant: </b><div id="time-asap">loading</div>
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+
+            socket.on('refresh', function (value) {
+                $('#time').html(value);
+            });
+
+            socket.on('refreshAsap', function (value) {
+                $('#time-asap').html(value);
+            });
+        </script>
+    </body>
+</html>
