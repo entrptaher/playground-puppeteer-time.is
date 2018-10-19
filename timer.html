@@ -1,0 +1,61 @@
+<!-- Copied from: https://codepen.io/jasonleewilson/pen/gPrxwX-->
+
+<body onLoad="initClock()">
+  <div id="timedate">
+    <a id="mon">January</a>
+    <a id="d">1</a>,
+    <a id="y">0</a><br />
+    <a id="h">12</a> :
+    <a id="m">00</a>:
+    <a id="s">00</a>:
+    <a id="mi">000</a>
+  </div>
+</body>
+
+<style>
+  body {
+    background-color: #666;
+  }
+
+  #timedate {
+    font: small-caps lighter 43px/150% "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+    text-align: left;
+    width: 50%;
+    margin: 40px auto;
+    color: #fff;
+    border-left: 3px solid yellow;
+    padding: 20px;
+  }
+</style>
+
+<script>
+  // START CLOCK SCRIPT
+
+  Number.prototype.pad = function (n) {
+    for (var r = this.toString(); r.length < n; r = 0 + r);
+    return r;
+  };
+
+  function updateClock() {
+    var now = new Date();
+    var milli = now.getMilliseconds(),
+      sec = now.getSeconds(),
+      min = now.getMinutes(),
+      hou = now.getHours(),
+      mo = now.getMonth(),
+      dy = now.getDate(),
+      yr = now.getFullYear();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var tags = ["mon", "d", "y", "h", "m", "s", "mi"],
+      corr = [months[mo], dy, yr, hou.pad(2), min.pad(2), sec.pad(2), milli];
+    for (var i = 0; i < tags.length; i++)
+      document.getElementById(tags[i]).firstChild.nodeValue = corr[i];
+  }
+
+  function initClock() {
+    updateClock();
+    window.setInterval("updateClock()", 1);
+  }
+
+// END CLOCK SCRIPT
+</script>
